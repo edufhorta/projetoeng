@@ -1,0 +1,39 @@
+-- Criação do schema
+CREATE SCHEMA IF NOT EXISTS "engProj";
+
+-- Tabela de estoque de ingredientes
+CREATE TABLE IF NOT EXISTS "engProj".stock (
+    id SERIAL PRIMARY KEY,
+    ingrediente VARCHAR(100) UNIQUE NOT NULL,
+    quantidade INT NOT NULL DEFAULT 0
+);
+
+-- Tabela de refeições
+CREATE TABLE IF NOT EXISTS "engProj".refeicoes (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) UNIQUE NOT NULL
+);
+
+-- Tabela de ingredientes por refeição (nutricional)
+CREATE TABLE IF NOT EXISTS "engProj".nutricional (
+    id SERIAL PRIMARY KEY,
+    id_refeicao INT NOT NULL,
+    ingredientes VARCHAR(100) NOT NULL,
+    FOREIGN KEY (id_refeicao) REFERENCES "engProj".refeicoes(id) ON DELETE CASCADE
+);
+
+-- Tabela de feedbacks por refeição
+CREATE TABLE IF NOT EXISTS "engProj".feedback (
+    id SERIAL PRIMARY KEY,
+    id_refeicao INT NOT NULL,
+    comentario TEXT NOT NULL,
+    FOREIGN KEY (id_refeicao) REFERENCES "engProj".refeicoes(id) ON DELETE CASCADE
+);
+
+-- Tabela de pedidos
+CREATE TABLE IF NOT EXISTS "engProj".orders (
+    id SERIAL PRIMARY KEY,
+    id_refeicao INT NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'ativo',
+    FOREIGN KEY (id_refeicao) REFERENCES "engProj".refeicoes(id) ON DELETE CASCADE
+);
