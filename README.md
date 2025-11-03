@@ -1,7 +1,7 @@
 ## Requesitos para operar:
 **Baixe:**
    - Apache Netbeans Studio\n
-   - pg Admin
+   - pgAdmin4
    - arquivo .jar "postgresql-42.7.5.jar"
 
 ## ⚙️ Como executar o projeto
