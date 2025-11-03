@@ -1,8 +1,8 @@
-## Requesitos para operar.
-**Baixe**
--Apache Netbeans Studio
--pg Admin
--arquivo .jar "postgresql-42.7.5.jar"
+## Requesitos para operar:
+**Baixe:**\n
+-Apache Netbeans Studio\n
+-pg Admin\n
+-arquivo .jar "postgresql-42.7.5.jar"\n
 
 ## ⚙️ Como executar o projeto
 
