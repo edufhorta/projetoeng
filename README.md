@@ -1,5 +1,5 @@
 ## Requesitos para operar.
-** Baixe **
+**Baixe**
 -Apache Netbeans Studio
 -pg Admin
 -arquivo .jar "postgresql-42.7.5.jar"
