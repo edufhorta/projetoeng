@@ -1,39 +1,70 @@
--- Criação do schema
-CREATE SCHEMA IF NOT EXISTS "engProj";
+-- 1️⃣ Criar schema
+CREATE SCHEMA IF NOT EXISTS engProj;
 
--- Tabela de estoque de ingredientes
-CREATE TABLE IF NOT EXISTS "engProj".stock (
+-- 2️⃣ Tabela de Refeições
+CREATE TABLE engProj.refeicoes (
     id SERIAL PRIMARY KEY,
-    ingrediente VARCHAR(100) UNIQUE NOT NULL,
-    quantidade INT NOT NULL DEFAULT 0
+    nome VARCHAR(100) NOT NULL
 );
 
--- Tabela de refeições
-CREATE TABLE IF NOT EXISTS "engProj".refeicoes (
+-- 3️⃣ Tabela Nutricional (ingredientes de cada refeição)
+CREATE TABLE engProj.nutricional (
     id SERIAL PRIMARY KEY,
-    nome VARCHAR(100) UNIQUE NOT NULL
+    id_refeicao INT REFERENCES engProj.refeicoes(id) ON DELETE CASCADE,
+    ingredientes VARCHAR(255) NOT NULL
 );
 
--- Tabela de ingredientes por refeição (nutricional)
-CREATE TABLE IF NOT EXISTS "engProj".nutricional (
+-- 4️⃣ Tabela de Estoque
+CREATE TABLE engProj.stock (
     id SERIAL PRIMARY KEY,
-    id_refeicao INT NOT NULL,
-    ingredientes VARCHAR(100) NOT NULL,
-    FOREIGN KEY (id_refeicao) REFERENCES "engProj".refeicoes(id) ON DELETE CASCADE
+    ingrediente VARCHAR(100) NOT NULL,
+    quantidade INT NOT NULL
 );
 
--- Tabela de feedbacks por refeição
-CREATE TABLE IF NOT EXISTS "engProj".feedback (
+-- 5️⃣ Tabela de Pedidos
+CREATE TABLE engProj.orders (
     id SERIAL PRIMARY KEY,
-    id_refeicao INT NOT NULL,
-    comentario TEXT NOT NULL,
-    FOREIGN KEY (id_refeicao) REFERENCES "engProj".refeicoes(id) ON DELETE CASCADE
+    id_refeicao INT REFERENCES engProj.refeicoes(id) ON DELETE CASCADE,
+    status VARCHAR(20) DEFAULT 'ativo'
 );
 
--- Tabela de pedidos
-CREATE TABLE IF NOT EXISTS "engProj".orders (
+-- 6️⃣ Tabela de Feedback
+CREATE TABLE engProj.feedback (
     id SERIAL PRIMARY KEY,
-    id_refeicao INT NOT NULL,
-    status VARCHAR(20) NOT NULL DEFAULT 'ativo',
-    FOREIGN KEY (id_refeicao) REFERENCES "engProj".refeicoes(id) ON DELETE CASCADE
+    id_refeicao INT REFERENCES engProj.refeicoes(id) ON DELETE CASCADE,
+    comentario TEXT NOT NULL
 );
+
+-- 7️⃣ Inserts de exemplo: Refeições
+INSERT INTO engProj.refeicoes (nome) VALUES
+('Arroz com Frango'),
+('Lasanha Bolonhesa'),
+('Risoto de Cogumelos');
+
+-- 8️⃣ Inserts de exemplo: Ingredientes para cada refeição
+INSERT INTO engProj.nutricional (id_refeicao, ingredientes) VALUES
+(1, 'arroz, frango, sal'),
+(2, 'massa, molho, carne, queijo'),
+(3, 'arroz, cogumelos, creme de leite, queijo');
+
+-- 9️⃣ Inserts de exemplo: Estoque
+INSERT INTO engProj.stock (ingrediente, quantidade) VALUES
+('arroz', 500),
+('frango', 300),
+('sal', 50),
+('massa', 200),
+('molho', 100),
+('carne', 250),
+('queijo', 150),
+('cogumelos', 100),
+('creme de leite', 80);
+
+-- 10️⃣ Inserts de exemplo: Pedidos
+INSERT INTO engProj.orders (id_refeicao, status) VALUES
+(1, 'ativo'),
+(2, 'ativo');
+
+-- 11️⃣ Inserts de exemplo: Feedback
+INSERT INTO engProj.feedback (id_refeicao, comentario) VALUES
+(1, 'Muito saboroso!'),
+(2, 'Gostei da lasanha, mas podia ter mais queijo.');
