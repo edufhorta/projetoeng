@@ -1,3 +1,9 @@
+## Requesitos para operar.
+** Baixe **
+-Apache Netbeans Studio
+-pg Admin
+-arquivo .jar "postgresql-42.7.5.jar"
+
 ## ⚙️ Como executar o projeto
 
 1. **Importe o projeto**
